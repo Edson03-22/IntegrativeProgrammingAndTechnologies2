@@ -4,12 +4,12 @@ import { RouterOutlet, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  standalone: true, // Assuming Angular 17+ based on your syntax
+  standalone: true,
   imports: [FormsModule, RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
+  templateUrl: './login.html', // Change this to match your filename
+  styleUrl: './login.css'       // Ensure this matches your CSS filename too
 })
-export class App {
+export class Login {
   protected readonly title = signal('IntegrativeProgramming');
   
   // Changed name to 'router' to match your login function

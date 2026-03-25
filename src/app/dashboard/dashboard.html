@@ -1,0 +1,66 @@
+<div class="dashboard-container">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <img src="/Sta fe.jpg" alt="Seal" class="mini-logo">
+      <span>BIS Panel</span>
+    </div>
+    <nav>
+      <ul>
+        <li class="active">📊 Dashboard</li>
+        <li>📁 Complaints</li>
+        <li>👥 Residents</li>
+        <li>⚙️ Settings</li>
+      </ul>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="logout-btn">Logout</button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="top-nav">
+      <h2>Welcome, {{ userName }}</h2>
+      <span class="date">{{ currentDate }}</span>
+    </header>
+
+    <div class="stats-grid">
+      @for (stat of stats; track stat.label) {
+        <div class="stat-card">
+          <div class="stat-icon" [style.background-color]="stat.color">{{ stat.icon }}</div>
+          <div class="stat-info">
+            <h3>{{ stat.count }}</h3>
+            <p>{{ stat.label }}</p>
+          </div>
+        </div>
+      }
+    </div>
+
+    <section class="recent-activity">
+      <h3>Recent Complaints</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Resident</th>
+            <th>Type</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>#001</td>
+            <td>Juan Dela Cruz</td>
+            <td>Noise Complaint</td>
+            <td><span class="badge pending">Pending</span></td>
+          </tr>
+          <tr>
+            <td>#002</td>
+            <td>Maria Santos</td>
+            <td>Waste Management</td>
+            <td><span class="badge resolved">Resolved</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</div>
