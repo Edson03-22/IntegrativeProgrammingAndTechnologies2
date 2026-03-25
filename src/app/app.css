@@ -1,47 +1,119 @@
-.portfolio-container {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 20px;
-   font-family: "Times New Roman", Times, serif;
-  color: #333;
+
+/* Background – Government style */
+.brgy-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom right, #0a2342, #10375c);
+  position: relative;
+  overflow: hidden;
 }
 
-header {
+/* Subtle government glow */
+.brgy-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(255,215,0,0.12), transparent);
+}
+
+/* Card Container */
+.brgy-card {
+  width: 380px;
+  padding: 35px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(14px);
+  border-radius: 20px;
   text-align: center;
-  margin-bottom: 30px;
+  color: #fff;
+  animation: fadeIn 1.2s ease;
+  box-shadow: 0 0 25px rgba(0,0,0,0.4);
 }
 
-header h1 {
-  font-size: 36px;
-  margin-bottom: 10px;
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-section h2 {
-  margin-top: 20px;
-  font-size: 24px;
-  border-bottom: 2px solid #444;
-  padding-bottom: 5px;
-}
-
-ul {
-  margin-left: 20px;
-}
-
-footer {
-  text-align: center;
-  margin-top: 40px;
-  font-size: 14px;
-  color: #777;
-}
-
-.profile-img {
-  width: 180px;
-  height: 180px;
+/* Barangay Seal */
+.brgy-logo {
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid #444;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
+  border: 3px solid gold;
+}
+
+/* Titles */
+.brgy-card h1 {
+  font-size: 25px;
+  font-weight: 700;
+  margin-bottom: 5px;
+  letter-spacing: 0.5px;
+  color: #f9f9f9;
+}
+
+.subtitle {
+  font-size: 14px;
+  margin-bottom: 25px;
+  opacity: 0.85;
+}
+
+/* Labels */
+label {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  text-align: left;
+  margin: 10px 0 5px;
+  font-size: 14px;
+  color: #e8e8e8;
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 13px;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 18px;
+  background: rgba(255,255,255,0.18);
+  color: white;
+  font-size: 15px;
+  outline: none;
+  transition: 0.25s;
+}
+
+input:focus {
+  background: rgba(255,255,255,0.25);
+  box-shadow: 0 0 8px rgba(255,215,0,0.4);
+}
+
+/* Login Button */
+button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(to right, #e7b10a, #ffcf40);
+  color: #000;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255,215,0,0.4);
+}
+
+/* Message */
+.message {
+  margin-top: 18px;
+  font-weight: bold;
+  color: #ffeeaa;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
 }

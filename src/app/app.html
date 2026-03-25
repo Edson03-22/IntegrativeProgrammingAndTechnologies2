@@ -1,45 +1,22 @@
-<div class="portfolio-container">
-  <header>
+<div class="brgy-page">
 
-    <img src="/ed.jpg" alt="Edson Avorque Photo" class="profile-img">
+  <div class="brgy-card">
 
-    <h1>Edson P. Avorque</h1>
-    <p>Sta. Fe, Leyte – Zone 4</p>
-    <p>3rd Year BS Information Technology • Section A</p>
-    <p>EVSU Dulag Campus</p>
-  </header>
+    <img class="brgy-logo" src="/Sta fe.jpg" alt="Barangay Seal">
 
-  <section class="about">
-    <h2>About Me</h2>
-    <p>
-      Hi! I am <strong>Edson P. Avorque</strong>, currently enrolled at 
-      <strong>EVSU Dulag Campus</strong> taking Bachelor of Science in Information Technology.
-    </p>
-    <p>
-      I am passionate about technology, creativity, and learning new things. My hobbies include:
-    </p>
+    <h1>Barangay Information System</h1>
+    <p class="subtitle">Secure Access Login</p>
 
-    <ul>
-      <li>Drawing</li>
-      <li>Playing online games</li>
-      <li>Traveling</li>
-      <li>Watching anime</li>
-    </ul>
-  </section>
+    <label>Username</label>
+    <input type="text" [(ngModel)]="username" placeholder="Enter your username">
 
-  <section class="projects">
-    <h2>Projects</h2>
-    <p>Here are some of the projects I have worked on as part of my studies:</p>
+    <label>Password</label>
+    <input type="password" [(ngModel)]="password" placeholder="Enter your password">
 
-    <ul>
-      <li><strong>PHP Language Projects</strong> – Basic CRUD systems, login forms, and web applications.</li>
-      <li><strong>Java for Games</strong> – Created simple 2D games and logic-based Java programs.</li>
-      <li><strong>Python using Django</strong> – Built a web application with models, views, and templates.</li>
-    </ul>
-  </section>
+    <button (click)="login()">Login</button>
 
-  <footer>
-    <p>© 2026 Edson P. Avorque • Portfolio</p>
-  </footer>
+    <p class="message">{{ message }}</p>
+
+  </div>
+
 </div>
-<router-outlet></router-outlet>
