@@ -17,50 +17,30 @@
     </div>
   </aside>
 
-  <main class="main-content">
-    <header class="top-nav">
-      <h2>Welcome, {{ userName }}</h2>
-      <span class="date">{{ currentDate }}</span>
-    </header>
+ <div class="main-content">
+  <div class="search-container">
+    <input [formControl]="searchControl" type="text" placeholder="Search citizens (5s debounce)...">
+  </div>
 
-    <div class="stats-grid">
-      @for (stat of stats; track stat.label) {
-        <div class="stat-card">
-          <div class="stat-icon" [style.background-color]="stat.color">{{ stat.icon }}</div>
-          <div class="stat-info">
-            <h3>{{ stat.count }}</h3>
-            <p>{{ stat.label }}</p>
-          </div>
-        </div>
-      }
-    </div>
+  <table class="user-table">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of paginatedData">
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+      </tr>
+    </tbody>
+  </table>
 
-    <section class="recent-activity">
-      <h3>Recent Complaints</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Resident</th>
-            <th>Type</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>#001</td>
-            <td>Juan Dela Cruz</td>
-            <td>Noise Complaint</td>
-            <td><span class="badge pending">Pending</span></td>
-          </tr>
-          <tr>
-            <td>#002</td>
-            <td>Maria Santos</td>
-            <td>Waste Management</td>
-            <td><span class="badge resolved">Resolved</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-  </main>
+  <div class="pagination-bar">
+    <button [disabled]="currentPage === 1" (click)="setPage(currentPage - 1)">Prev</button>
+    <span>Page {{ currentPage }} of {{ totalPages || 1 }}</span>
+    <button [disabled]="currentPage >= totalPages" (click)="setPage(currentPage + 1)">Next</button>
+  </div>
+</div>
 </div>

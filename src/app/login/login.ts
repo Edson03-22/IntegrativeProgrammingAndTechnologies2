@@ -79,7 +79,6 @@ ngOnInit() {
       return;
     }
 
-    // 2. LocalStorage User Check
     const userExists = this.users.find(u => u.username === username && u.password === password);
 
     if (userExists) {
