@@ -1,40 +1,79 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterOutlet, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterOutlet],
-  templateUrl: './login.html', // Change this to match your filename
-  styleUrl: './login.css'       // Ensure this matches your CSS filename too
+  imports: [FormsModule, CommonModule],
+  templateUrl: './login.html',
+  styleUrl: './login.css'
 })
 export class Login {
-  protected readonly title = signal('IntegrativeProgramming');
-  
-  // Changed name to 'router' to match your login function
   private router = inject(Router);
-  
-  username = '';
-  password = '';
-  message = ''; // Added this to fix the HTML error
-  isLoggedin = false;
 
-  validatePassword(pass: string): boolean {
-    const upper = /[A-Z]/;
-    const lower = /[a-z]/;
-    const number = /[0-9]/;
-    return upper.test(pass) && lower.test(pass) && number.test(pass);
+  // 1. UI State Controls
+  isLogin = true; 
+  hasValidated = false;
+  message = '';
+
+  // 2. Login Fields
+  email = '';
+  password = '';
+
+  // 3. Registration Fields
+  regEmail = '';
+  usernameReg = '';
+  regPassword = '';
+
+
+  // 4. The Array (This fixes your TS2339 Error)
+  newuserList: any[] = [];
+
+  // Toggle between Login and Register
+  switchForm() {
+    this.isLogin = !this.isLogin;
+    this.message = '';
+    this.hasValidated = false; // Reset table view when switching
   }
 
-  login() {
-  if (this.username === 'admin' && this.password === 'admin123') {
-    this.message = 'Login successful! Redirecting...';
+  // Logic for the "Sign In" button
+  Validate() {
+    if (this.email === 'admin@gmail.com' && this.password === 'admin123') {
+      this.message = 'Login successful! Redirecting...';
+      this.router.navigate(['/dashboard']);
+    } else {
+      this.message = 'Invalid email or password.';
+    }
+  }
+
+register() {
+  // Check if all fields have values
+  if (this.regEmail && this.usernameReg && this.regPassword) {
     
-    // The string here must match the 'path' in app.routes.ts exactly
-    this.router.navigate(['/dashboard']); 
+    // 1. Create the new user object
+    const newUser = {
+      email: this.regEmail,
+      username: this.usernameReg
+    };
+
+    // 2. Add it to the array (the table will update automatically)
+    this.newuserList.push(newUser);
+
+    // 3. Set this to true so the *ngIf shows the table
+    this.hasValidated = true;
+
+    // 4. Success feedback
+    this.message = 'Account added successfully!';
+
+    // 5. Optional: Clear the input fields after adding
+    this.regEmail = '';
+    this.usernameReg = '';
+    this.regPassword = '';
+
   } else {
-    this.message = 'Invalid username or password.';
+    this.message = 'Please fill out all registration fields.';
   }
 }
 }

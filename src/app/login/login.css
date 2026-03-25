@@ -1,119 +1,200 @@
-
-/* Background – Government style */
-.brgy-page {
+/* General Page Styling */
+.page {
   height: 100vh;
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to bottom right, #0a2342, #10375c);
-  position: relative;
-  overflow: hidden;
-}
-
-/* Subtle government glow */
-.brgy-page::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at top, rgba(255,215,0,0.12), transparent);
+  background: linear-gradient(135deg, #0a2e5c 0%, #154580 100%);
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  margin: 0;
+  overflow-y: auto; /* Allows scrolling if the table gets long */
 }
 
 /* Card Container */
-.brgy-card {
-  width: 380px;
-  padding: 35px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
-  backdrop-filter: blur(14px);
-  border-radius: 20px;
+.card {
+  width: 450px;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   text-align: center;
-  color: #fff;
-  animation: fadeIn 1.2s ease;
-  box-shadow: 0 0 25px rgba(0,0,0,0.4);
+  border-top: 5px solid #e7b10a; /* Gold Accent */
+  margin: 20px;
 }
 
-/* Fade-in animation */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Branding Section */
+.branding {
+  margin-bottom: 30px;
 }
 
-/* Barangay Seal */
-.brgy-logo {
-  width: 110px;
-  height: 110px;
+.seal-circle {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 15px;
+  background: #fff;
   border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 12px;
-  border: 3px solid gold;
+  padding: 5px;
+  border: 2px solid #0a2e5c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* Titles */
-.brgy-card h1 {
-  font-size: 25px;
-  font-weight: 700;
-  margin-bottom: 5px;
-  letter-spacing: 0.5px;
-  color: #f9f9f9;
+.seal-image {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
 }
 
-.subtitle {
-  font-size: 14px;
+.branding-text h1 {
+  font-size: 1.4rem;
+  color: #0a2e5c;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.branding-text p {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 5px 0 0;
+}
+
+/* Typography */
+h2 {
+  color: #333;
+  font-size: 1.25rem;
   margin-bottom: 25px;
-  opacity: 0.85;
+  font-weight: 600;
 }
 
-/* Labels */
-label {
-  display: block;
+/* Input Groups */
+.input-group {
   text-align: left;
-  margin: 10px 0 5px;
-  font-size: 14px;
-  color: #e8e8e8;
-}
-
-/* Inputs */
-input {
-  width: 100%;
-  padding: 13px;
-  border-radius: 8px;
-  border: none;
   margin-bottom: 18px;
-  background: rgba(255,255,255,0.18);
-  color: white;
-  font-size: 15px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box; /* Crucial for width alignment */
+  transition: border-color 0.3s;
+}
+
+input:focus, select:focus {
   outline: none;
-  transition: 0.25s;
+  border-color: #e7b10a;
+  box-shadow: 0 0 5px rgba(231, 177, 10, 0.3);
 }
 
-input:focus {
-  background: rgba(255,255,255,0.25);
-  box-shadow: 0 0 8px rgba(255,215,0,0.4);
-}
-
-/* Login Button */
+/* Buttons */
 button {
   width: 100%;
   padding: 14px;
+  background-color: #0a2e5c;
+  color: white;
   border: none;
-  border-radius: 8px;
-  background: linear-gradient(to right, #e7b10a, #ffcf40);
-  color: #000;
-  font-size: 17px;
+  border-radius: 6px;
+  font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.25s;
+  transition: background 0.3s, transform 0.2s;
+  margin-top: 10px;
 }
 
 button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255,215,0,0.4);
+  background-color: #154580;
+  transform: translateY(-1px);
 }
 
-/* Message */
-.message {
-  margin-top: 18px;
+/* Switch Form Link */
+.switch {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.switch span {
+  color: #0a2e5c;
   font-weight: bold;
-  color: #ffeeaa;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Table Styling */
+.user-table {
+  width: 100%;
+  margin-top: 25px;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  border: 1px solid #eee;
+}
+
+.user-table th {
+  background-color: #f8f9fa;
+  color: #333;
+  padding: 10px;
+  border-bottom: 2px solid #0a2e5c;
+}
+
+.user-table td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  color: #555;
+}
+
+/* Messages */
+.message {
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #d9534f; /* Default red for error */
+}
+
+/* Success variation for message if needed */
+.message:contains("successful") {
+  color: #2ecc71;
+}
+/* Styling for the table that appears below the register button */
+.user-table {
+  width: 100%;
+  margin-top: 25px;
+  border-collapse: collapse;
+  background-color: #fcfcfc;
+  border: 1px solid #ddd;
+  animation: slideDown 0.4s ease-out; /* Smooth entry effect */
+}
+
+.user-table th {
+  background-color: #0a2e5c;
+  color: white;
+  padding: 10px;
+  text-align: left;
+}
+
+.user-table td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  color: #333;
+}
+
+/* Animation to make the table look nice when it appears */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
