@@ -1,79 +1,103 @@
-import { Component, inject, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
-export class Login {
+export class Login implements OnInit {
+  private fb = inject(FormBuilder);
   private router = inject(Router);
 
-  // 1. UI State Controls
-  isLogin = true; 
-  hasValidated = false;
+  isSignUpMode = false;
+  loginForm!: FormGroup;
   message = '';
 
-  // 2. Login Fields
-  email = '';
-  password = '';
+  users: any[] = [];
 
-  // 3. Registration Fields
-  regEmail = '';
-  usernameReg = '';
-  regPassword = '';
+  constructor() {
+  this.loginForm = this.fb.group({
+    username: ['', [
+      Validators.required, 
+      Validators.minLength(3), 
+      Validators.maxLength(15)
+    ]],
+    password: ['', [
+      Validators.required, 
+      Validators.minLength(5), 
+      Validators.maxLength(10)
+    ]],
+    email: ['', [Validators.email]] // Email starts optional for Login
+  });
+}
 
-
-  // 4. The Array (This fixes your TS2339 Error)
-  newuserList: any[] = [];
-
-  // Toggle between Login and Register
-  switchForm() {
-    this.isLogin = !this.isLogin;
-    this.message = '';
-    this.hasValidated = false; // Reset table view when switching
+signup() {
+  if (!this.isSignUpMode) {
+    this.isSignUpMode = true;
+    this.loginForm.get('email')?.setValidators([Validators.required, Validators.email]);
+    this.loginForm.get('email')?.updateValueAndValidity();
+  } else {
+    if (this.loginForm.valid) {
+      const newUser = this.loginForm.value;
+      this.users.push(newUser);
+      localStorage.setItem('registeredUsers', JSON.stringify(this.users));
+      alert('User Registered!');
+      this.isSignUpMode = false;
+      this.loginForm.reset();
+    } else {
+      this.loginForm.markAllAsTouched();
+      this.message = 'Please fix the errors in the form.';
+    }
+  }
+}
+ngOnInit() {
+    const savedUsers = localStorage.getItem('registeredUsers');
+    this.users = savedUsers ? JSON.parse(savedUsers) : [];
   }
 
-  // Logic for the "Sign In" button
-  Validate() {
-    if (this.email === 'admin@gmail.com' && this.password === 'admin123') {
-      this.message = 'Login successful! Redirecting...';
+  /**
+   * Handle Login logic (Admin check + LocalStorage check)
+   */
+  login() {
+    if (this.isSignUpMode) {
+      this.isSignUpMode = false;
+      this.loginForm.get('email')?.clearValidators();
+      this.loginForm.get('email')?.updateValueAndValidity();
+      this.message = '';
+      return;
+    }
+
+    const { username, password } = this.loginForm.value;
+
+    if (username === 'admin' && password === 'admin123') {
+      this.router.navigate(['/dashboard']);
+      return;
+    }
+
+    // 2. LocalStorage User Check
+    const userExists = this.users.find(u => u.username === username && u.password === password);
+
+    if (userExists) {
+      alert(`Welcome back, ${username}!`);
       this.router.navigate(['/dashboard']);
     } else {
-      this.message = 'Invalid email or password.';
+      this.message = 'Invalid username or password.';
     }
   }
 
-register() {
-  // Check if all fields have values
-  if (this.regEmail && this.usernameReg && this.regPassword) {
-    
-    // 1. Create the new user object
-    const newUser = {
-      email: this.regEmail,
-      username: this.usernameReg
-    };
-
-    // 2. Add it to the array (the table will update automatically)
-    this.newuserList.push(newUser);
-
-    // 3. Set this to true so the *ngIf shows the table
-    this.hasValidated = true;
-
-    // 4. Success feedback
-    this.message = 'Account added successfully!';
-
-    // 5. Optional: Clear the input fields after adding
-    this.regEmail = '';
-    this.usernameReg = '';
-    this.regPassword = '';
-
-  } else {
-    this.message = 'Please fill out all registration fields.';
+  /**
+   * Clear all registered users
+   */
+  clearTable() {
+    if (confirm('Are you sure you want to delete all registered accounts?')) {
+      localStorage.removeItem('registeredUsers');
+      this.users = [];
+      this.message = 'User list cleared.';
+    }
   }
-}
 }
