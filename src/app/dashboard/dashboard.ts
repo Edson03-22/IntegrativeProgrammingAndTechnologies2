@@ -84,4 +84,11 @@ export class Dashboard implements OnInit {
   get totalPages() {
     return Math.ceil(this.filteredUsers.length / this.pageSize);
   }
+  gotoPortfolio() {
+    // Navigate to the portfolio page
+    window.location.href = '/portfolio';
+  }
+  logout() {
+    window.location.href = '/login';
+  }
 }

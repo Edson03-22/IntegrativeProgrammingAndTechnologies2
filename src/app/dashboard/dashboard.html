@@ -8,12 +8,12 @@
       <ul>
         <li class="active">📊 Dashboard</li>
         <li>📁 Complaints</li>
-        <li>👥 Residents</li>
+        <li><button (click)="gotoPortfolio()">👥 About Us</button></li>
         <li>⚙️ Settings</li>
       </ul>
     </nav>
     <div class="sidebar-footer">
-      <button class="logout-btn">Logout</button>
+      <button class="logout-btn" (click)="logout()">Logout</button>
     </div>
   </aside>
 
